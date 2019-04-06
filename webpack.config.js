@@ -1,6 +1,7 @@
 const path = require("path");
 
 module.exports = {
+  devtool: 'source-map',
   entry: "./src/index.js",
   output: {
     path: path.join(__dirname, "/public"),
@@ -12,7 +13,8 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: "babel-loader"
+        loader: "babel-loader",
+        options: { babelrcRoots: [".", "../"] } //MAGIC for @babel/plugin-proposal-class-properties
       }
     ]
   },

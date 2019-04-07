@@ -28,7 +28,10 @@ export default class Article extends Component {
     return <section>{article.text}</section>;
   }
 
-  toggleOpen = () => {
+  toggleOpen = (ev) => {
+    ev.preventDefault();
+    console.log(ev);
+    console.log(ev.nativeEvent);
     this.setState({
       isOpen: !this.state.isOpen
     });

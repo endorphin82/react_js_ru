@@ -1,6 +1,16 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
+import CommentList from "./CommentList";
 
 export default class Article extends Component {
+  static propTypes = {
+    article: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      text: PropTypes.string
+    }).isRequired
+  };
+
   constructor(props) {
     super(props);
 
@@ -25,17 +35,17 @@ export default class Article extends Component {
   getBody() {
     if (!this.state.isOpen) return null;
     const { article } = this.props;
-    return <section>{article.text}</section>;
+    return (
+      <section>
+        {article.text}
+        <CommentList comments={article.comments}/>
+      </section>);
   }
 
   toggleOpen = (ev) => {
-    ev.preventDefault();
-    console.log(ev);
-    console.log(ev.nativeEvent);
     this.setState({
       isOpen: !this.state.isOpen
     });
-    console.log(this.state.isOpen);
   };
 }
 

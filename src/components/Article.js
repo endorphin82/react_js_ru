@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { findDOMNode } from "react-dom";
 import PropTypes from "prop-types";
 import CommentList from "./CommentList";
-import toggleOpen from "../decorators/toggleOpen";
 
 class Article extends Component {
   static propTypes = {
@@ -15,7 +14,6 @@ class Article extends Component {
 
   componentWillReceiveProps(nextProps) {
     console.log("---", "updating", this.props.isOpen, nextProps.isOpen);
-
   }
 
   componentWillMount() {
@@ -59,4 +57,4 @@ class Article extends Component {
   };
 }
 
-export default toggleOpen(Article);
+export default Article;

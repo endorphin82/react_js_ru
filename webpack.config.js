@@ -8,8 +8,8 @@ module.exports = {
   entry: "./src/index.js",
   output: {
     path: path.join(__dirname, "public"),
-    filename: "bundle.js"
-    // publicPath: "/"
+    filename: "bundle.js",
+    publicPath: "/public/"
   },
   devServer: {
     hot: true,
@@ -23,6 +23,10 @@ module.exports = {
         loader: "babel-loader",
         include: path.join(__dirname, "src"),
         options: { babelrcRoots: [".", "../"] } //MAGIC for @babel/plugin-proposal-class-properties
+      },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"]
       }
     ]
   },

@@ -1,7 +1,9 @@
 import React, { Component, PureComponent } from "react";
 import { findDOMNode } from "react-dom";
 import PropTypes from "prop-types";
+import { CSSTransitionGroup } from "react-transition-group";
 import CommentList from "./CommentList";
+import "./article.css";
 
 class Article extends PureComponent {
   static propTypes = {
@@ -29,7 +31,14 @@ class Article extends PureComponent {
         <h3>{article.title}</h3>
         <button onClick={toggleOpen}>
           {isOpen ? "close" : "open"}</button>
-        {this.getBody()}
+        <CSSTransitionGroup
+          transitionName="article"
+          transitionAppear={true}
+          transitionAppearTimeout={500}
+          transitionEnterTimeout={300}
+          transitionLeaveTimeout={500}>
+          {this.getBody()}
+        </CSSTransitionGroup>
       </div>
     );
   }
@@ -48,7 +57,8 @@ class Article extends PureComponent {
         {article.text}
         <button onClick={() => this.setState({ updateIndex: this.state.updateIndex + 1 })}>update</button>
         <CommentList key={this.state.updateIndex} comments={article.comments} ref={this.setCommentsRef}/>
-      </section>);
+      </section>
+    );
   }
 
   setCommentsRef = ref => {

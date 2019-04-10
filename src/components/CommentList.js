@@ -2,6 +2,7 @@ import React from "react";
 import Comment from "./Comment";
 import toggleOpen from "../decorators/toggleOpen";
 import PropTypes from "prop-types";
+import CommentForm from "./CommentForm";
 
 function CommentList({ comments = [], isOpen, toggleOpen }) {
   const text = isOpen ? "hide comments" : "show comments";
@@ -25,9 +26,12 @@ function getBody({ comments, isOpen }) {
   if (!comments.length) return <p>No comments yet</p>;
 
   return (
-    <ul>
-      {comments.map(comment => <li key={comment.id}><Comment comment={comment}/></li>)}
-    </ul>
+    <div>
+      <ul>
+        {comments.map(comment => <li key={comment.id}><Comment comment={comment}/></li>)}
+      </ul>
+      <CommentForm/>
+    </div>
   );
 }
 

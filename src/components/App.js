@@ -3,6 +3,7 @@ import ArticleList from "./ArticleList";
 import ArticlesChart from "./ArticlesChart";
 import UserForm from "./UserForm";
 import Select from "react-select";
+import DayPickerComponent from "./DayPickerComponent";
 // import "./app.css";
 
 class App extends Component {
@@ -24,6 +25,7 @@ class App extends Component {
     return (
       <div>
         <UserForm/>
+        <DayPickerComponent/>
         <Select
           isMulti
           value={selectedOption}

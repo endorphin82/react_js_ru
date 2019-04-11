@@ -1,0 +1,4 @@
+.form-input__error {
+    /*border: 2px solid #FF0000;*/
+    outline-color: red;
+}

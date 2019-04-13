@@ -60,13 +60,12 @@ class Article extends PureComponent {
 
   getBody() {
     const { article, isOpen } = this.props;
-    console.log("upd");
     if (!isOpen) return null;
     return (
       <section>
         {article.text}
         <button onClick={() => this.setState({ updateIndex: this.state.updateIndex + 1 })}>update</button>
-        <CommentList key={this.state.updateIndex} comments={article.comments} ref={this.setCommentsRef}/>
+        <CommentList key={this.state.updateIndex} article={article} ref={this.setCommentsRef}/>
       </section>
     );
   }

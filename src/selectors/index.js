@@ -1,4 +1,5 @@
 import { createSelector } from "reselect";
+import { mapToArr } from "../helpers";
 
 const filtersGetter = state => state.filters;
 const articlesGetter = state => state.articles;
@@ -10,7 +11,7 @@ export const filteredArticlesSelector = createSelector(articlesGetter, filtersGe
 
   console.log("recomputing filtration");
 
-  return articles.filter(article => {
+  return mapToArr(articles).filter(article => {
     const published = Date.parse(article.date);
     return (!selected.length || selected.includes(article.id)) &&
       (!from || !to || (published > from && published < to));
@@ -18,5 +19,5 @@ export const filteredArticlesSelector = createSelector(articlesGetter, filtersGe
 });
 
 export const commentSelectorFactory = () => createSelector(commentsGetter, idGetter, (comments, id) => {
-  return comments[id]
+  return comments[id];
 });

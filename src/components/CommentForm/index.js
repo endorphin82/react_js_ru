@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import "./style.css";
+import { connect } from "react-redux";
+import { addComment } from "../../AC";
 
 class CommentForm extends Component {
   state = {
@@ -10,25 +12,24 @@ class CommentForm extends Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        user: <input
-        type='text'
-        className={this.getClassName("user")}
-        value={this.state.user}
-        onChange={this.handleChange("user")}
+        user: <input type='text'
+                     className={this.getClassName("user")}
+                     value={this.state.user}
+                     onChange={this.handleChange("user")}
       />
-        <br/>
-        Text: <input
-        type='text'
-        className={this.getClassName("text")}
-        value={this.state.text}
-        onChange={this.handleChange("text")}
+        comment: <input type='text'
+                        className={this.getClassName("text")}
+                        value={this.state.text}
+                        onChange={this.handleChange("text")}
       />
+        <input type="submit" value="submit"/>
       </form>
     );
   }
 
   handleSubmit = ev => {
     ev.preventDefault();
+    this.props.addComment(this.state);
     this.setState({
       user: "",
       text: ""
@@ -38,9 +39,8 @@ class CommentForm extends Component {
   handleChange = type => ev => {
     const { value } = ev.target;
     if (value.length > limits[type].max) return;
-
     this.setState({
-      [type]: ev.target.value
+      [type]: value
     });
   };
 
@@ -58,4 +58,7 @@ const limits = {
     max: 50
   }
 };
-export default CommentForm;
+
+export default connect(null, (dispatch, ownProps) => ({
+  addComment: (comment) => dispatch(addComment(comment, ownProps.articleId))
+}))(CommentForm);

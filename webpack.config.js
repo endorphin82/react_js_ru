@@ -12,6 +12,10 @@ module.exports = {
     publicPath: "/public/"
   },
   devServer: {
+    proxy: [{
+      path: '/api/',
+      target: 'http://localhost:3001'
+    }],
     hot: true,
     inline: true
   },

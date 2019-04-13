@@ -11,8 +11,8 @@ class Filters extends Component {
   render() {
     return (
       <div>
-        <SelectFilter articles={this.props.articles}/>
-        <DayPickerComponent/>
+        <SelectFilter />
+        <DayPickerComponent />
       </div>
     );
   }

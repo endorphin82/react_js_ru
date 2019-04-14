@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { filteredArticlesSelector } from "../selectors";
 import { loadAllArticles } from "../AC";
+import Loader from "./Loader";
 
 class ArticleList extends Component {
   static propTypes = {
@@ -16,14 +17,15 @@ class ArticleList extends Component {
   };
 
   componentDidMount() {
-    this.props.loadAllArticles();
+    const { loading, loaded, loadAllArticles } = this.props;
+    if (!loaded || !loading) loadAllArticles();
   }
 
   // static defaultProps = { articles: [] };
 
   render() {
-    const { articles, toggleOpenItem, openItemId } = this.props;
-
+    const { articles, loading, toggleOpenItem, openItemId } = this.props;
+    if (loading) return <Loader/>;
     const articleElements = articles.map((article) => <li key={article.id}>
       <Article
         article={article}
@@ -42,6 +44,8 @@ class ArticleList extends Component {
 
 export default connect((state) => {
   return {
-    articles: filteredArticlesSelector(state)
+    articles: filteredArticlesSelector(state),
+    loading: state.articles.loading,
+    loaded: state.articles.loaded
   };
 }, { loadAllArticles })(accordion(ArticleList));

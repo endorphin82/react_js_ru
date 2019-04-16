@@ -15,10 +15,13 @@ export default (filters = defaultFilters, action) => {
     case CHANGE_DATE_RANGE:
 //    return Object.assign({}, filters, { dateRange: payload.dateRange });
       return { ...filters, dateRange: payload.dateRange };
+
     case CHANGE_SELECTION:
       return { ...filters, selected: payload.selected };
+
     case DELETE_ARTICLE:
       return { ...filters, selected: filters.selected.filter(id => id !== payload.id) };
   }
+
   return filters;
 }

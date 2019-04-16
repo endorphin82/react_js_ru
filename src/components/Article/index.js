@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 import { deleteArticle, loadArticle } from "../../AC";
 import Loader from "../Loader";
 
-class Article extends PureComponent {
+class Article extends Component {
   static propTypes = {
     id: PropTypes.string.isRequired,
     isOpen: PropTypes.bool,
@@ -25,7 +25,6 @@ class Article extends PureComponent {
     updateIndex: 0
   };
 
-
   componentDidMount() {
     const { loadArticle, article, id } = this.props;
     // if (!this.props.isOpen && isOpen)
@@ -39,6 +38,7 @@ class Article extends PureComponent {
   render() {
     const { article, isOpen, toggleOpen } = this.props;
     if (!article) return null;
+
     return (
       <div ref={this.setContainerRef}>
         <h3>{article.title}</h3>
@@ -83,10 +83,11 @@ class Article extends PureComponent {
   }
 
   setCommentsRef = ref => {
+    this.comments = ref;
     // console.log("ref", findDOMNode(ref));
   };
 }
 
 export default connect((state, ownProps) => ({
   article: state.articles.entities.get(ownProps.id)
-}), { deleteArticle, loadArticle })(Article);
+}), { deleteArticle, loadArticle }, null, { pure: false })(Article);

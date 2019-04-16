@@ -14,12 +14,10 @@ class SelectFilter extends Component {
 
   render() {
     const { articles, selected } = this.props;
-    console.log("selected", selected, "articles", articles);
     const options = articles.map(article => ({
       label: article.title,
       value: article.id
     }));
-    console.log("options", options);
     return <Select
       value={selected}
       isMulti

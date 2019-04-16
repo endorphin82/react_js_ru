@@ -3,7 +3,9 @@ import Articles from "./routes/Articles";
 import UserForm from "./UserForm";
 import Filters from "./Filters";
 import Counter from "./Counter";
-import { HashRouter as Router, NavLink, Route } from "react-router-dom";
+import NotFound from "./routes/NotFound";
+import { BrowserRouter as Router, NavLink, Route, Switch } from "react-router-dom";
+import NewArticle from "./routes/NewArticle";
 
 // import "./app.css";
 
@@ -28,10 +30,13 @@ class App extends Component {
           </nav>
         </div>
         <UserForm/>
-        <Route path="/counter" component={Counter}/>
-        <Route path="/filters" render={() => <Filters articles={[]}/>}/>
-        <Route path="/articles" component={Articles}/>
-        {/*<Route path="/articles" component={ArticleList}/>*/}
+        <Switch>
+          <Route path="/counter" component={Counter}/>
+          <Route path="/filters" render={() => <Filters articles={[]}/>}/>
+          <Route path="/articles/new" component={NewArticle}/>
+          <Route path="/articles" component={Articles}/>
+          <Route path="*" component={NotFound}/>
+        </Switch>
       </Router>
     );
   }

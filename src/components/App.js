@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ArticleList from "./ArticleList";
+import Articles from "./routes/Articles";
 import UserForm from "./UserForm";
 import Filters from "./Filters";
 import Counter from "./Counter";
@@ -29,8 +29,9 @@ class App extends Component {
         </div>
         <UserForm/>
         <Route path="/counter" component={Counter}/>
-        <Route path="/filters" component={() => <Filters articles={[]}/>}/>
-        <Route path="/articles" component={ArticleList}/>
+        <Route path="/filters" render={() => <Filters articles={[]}/>}/>
+        <Route path="/articles" component={Articles}/>
+        {/*<Route path="/articles" component={ArticleList}/>*/}
       </Router>
     );
   }

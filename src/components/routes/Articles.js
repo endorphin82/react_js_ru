@@ -5,15 +5,11 @@ import Article from "../Article";
 
 class Articles extends Component {
   render() {
-    const { isExact } = this.props.match;
     return (
       <div>
         <ArticleList/>
-        {
-          isExact
-            ? <h2>Please select article</h2>
-            : <Route path="/articles/:id" render={this.getArticle}/>
-        }
+        <Route exact path="/articles" render={this.getIndex}/>
+        <Route path="/articles/:id" render={this.getArticle}/>
       </div>
     );
   }
@@ -21,6 +17,10 @@ class Articles extends Component {
   getArticle = ({ match }) => {
     const { id } = match.params;
     return <Article id={id} isOpen key={id}/>;
+  };
+
+  getIndex = () => {
+    return <h2>Please select article</h2>;
   };
 }
 

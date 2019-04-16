@@ -9,7 +9,7 @@ const idGetter = (state, props) => props.id;
 export const filteredArticlesSelector = createSelector(articlesGetter, filtersGetter, (articles, filters) => {
   const { selected, dateRange: { from, to } } = filters;
 
-  console.log("recomputing filtration");
+  console.log("recomputing filtration selector/index.js");
 
   return mapToArr(articles).filter(article => {
     const published = Date.parse(article.date);

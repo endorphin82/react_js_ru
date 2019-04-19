@@ -3,6 +3,7 @@ import {
   CHANGE_SELECTION, ADD_COMMENT, LOAD_ALL_ARTICLES, LOAD_ARTICLE,
   START, SUCCESS, FAILURE, LOAD_ARTICLE_COMMENTS, LOAD_COMMENTS_FOR_PAGE
 } from "../constants";
+import { push, replace } from "connected-react-router";
 
 export function increment() {
   return {
@@ -62,15 +63,25 @@ export function loadArticle(id) {
     });
     setTimeout(() => {
       fetch(`/api/article/${id}`)
-        .then(res => res.json())
+        .then(res => {
+          if (res.status >= 400) {
+            throw new Error(res.statusText);
+          }
+          return res.json();
+        })
         .then(response => dispatch({
           type: LOAD_ARTICLE + SUCCESS,
           payload: { id, response }
         }))
-        .catch(error => dispatch({
-          type: LOAD_ARTICLE + FAILURE,
-          payload: { id, error }
-        }));
+        .catch(error => {
+
+          dispatch({
+            type: LOAD_ARTICLE + FAILURE,
+            payload: { id, error }
+          });
+          // dispatch(push("/error"));
+          dispatch(replace("/error"));
+        });
     }, 2000);
   };
 }

@@ -6,14 +6,17 @@ import Counter from "./Counter";
 import NotFound from "./routes/NotFound";
 import NewArticle from "./routes/NewArticle";
 import CommentsPage from "./routes/CommentsPage";
-import { BrowserRouter as Router, NavLink, Route, Switch } from "react-router-dom";
+import { NavLink, Route, Switch } from "react-router-dom";
+import { history } from "../history";
+import { ConnectedRouter } from 'connected-react-router'
+
 
 // import "./app.css";
 
 class App extends Component {
   render() {
     return (
-      <Router>
+      <ConnectedRouter history={history}>
         <div>
           <h2>Main menu</h2>
           <nav>
@@ -40,7 +43,7 @@ class App extends Component {
           {/*<Redirect from='/comments/' to="/comments/1"/>*/}
           <Route path="*" component={NotFound}/>
         </Switch>
-      </Router>
+      </ConnectedRouter>
     );
   }
 }

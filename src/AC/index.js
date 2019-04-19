@@ -3,7 +3,8 @@ import {
   CHANGE_SELECTION, ADD_COMMENT, LOAD_ALL_ARTICLES, LOAD_ARTICLE,
   START, SUCCESS, FAILURE, LOAD_ARTICLE_COMMENTS, LOAD_COMMENTS_FOR_PAGE
 } from "../constants";
-import { push, replace } from "connected-react-router";
+import { replace } from "connected-react-router";
+// import { history } from "../history";
 
 export function increment() {
   return {
@@ -80,6 +81,7 @@ export function loadArticle(id) {
             payload: { id, error }
           });
           // dispatch(push("/error"));
+          // history.replace("/error");
           dispatch(replace("/error"));
         });
     }, 2000);

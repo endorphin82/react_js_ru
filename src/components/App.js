@@ -8,12 +8,27 @@ import NewArticle from "./routes/NewArticle";
 import CommentsPage from "./routes/CommentsPage";
 import { NavLink, Route, Switch } from "react-router-dom";
 import { history } from "../history";
-import { ConnectedRouter } from 'connected-react-router'
+import { ConnectedRouter } from "connected-react-router";
+import PropTypes from "prop-types";
 
 
 // import "./app.css";
 
 class App extends Component {
+  static childContextTypes = {
+    user: PropTypes.string
+  };
+
+  getChildContext() {
+    return {
+      user: this.state.username
+    };
+  }
+
+  state = {
+    username: ""
+  };
+
   render() {
     return (
       <ConnectedRouter history={history}>
@@ -33,7 +48,7 @@ class App extends Component {
             </ul>
           </nav>
         </div>
-        <UserForm/>
+        <UserForm value={this.state.username} onChange={this.handleUserChange}/>
         <Switch>
           <Route path="/counter" component={Counter}/>
           <Route path="/filters" render={() => <Filters articles={[]}/>}/>
@@ -46,6 +61,10 @@ class App extends Component {
       </ConnectedRouter>
     );
   }
+
+  handleUserChange = (username) => this.setState({ username });
+
 }
+
 
 export default App;

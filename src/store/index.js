@@ -17,7 +17,7 @@ const composeEnhancers =
       // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
     }) : compose;
 const enhancer = composeEnhancers(
-  applyMiddleware(thunk, randomId, api, logger, routerHistoryMiddleware)
+  applyMiddleware(thunk, randomId, api/*, logger*/, routerHistoryMiddleware)
 );
 
 const store = createStore(reducer, {}, enhancer);

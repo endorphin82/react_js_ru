@@ -8,6 +8,12 @@ import { connect } from "react-redux";
 import { loadArticleComments } from "../AC";
 
 class CommentList extends Component {
+  static contextTypes = {
+    store: PropTypes.object,
+    router: PropTypes.object,
+    user: PropTypes.string
+  };
+
   componentWillReceiveProps({ isOpen, article, loadArticleComments }) {
     if (!this.props.isOpen && isOpen && !article.commentsLoading && !article.commentsLoaded) {
       loadArticleComments(article.id);
@@ -17,9 +23,11 @@ class CommentList extends Component {
 
   render() {
     let { article, isOpen, toggleOpen } = this.props;
+    console.log("this.context", this.context);
     const text = isOpen ? "hide comments" : "show comments";
     return (
       <div>
+        <h3>User: {this.context.user}</h3>
         <button onClick={toggleOpen}>{text}</button>
         {getBody({ article, isOpen })}
       </div>
@@ -57,4 +65,4 @@ function getBody({ article: { comments = [], id, commentsLoading, commentsLoaded
 }
 
 
-export default connect(null, { loadArticleComments })(toggleOpen(CommentList));
+export default connect(null, { loadArticleComments }, null, { pure: false })(toggleOpen(CommentList));

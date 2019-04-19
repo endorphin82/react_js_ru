@@ -4,6 +4,11 @@ import logger from "../middlewares/logger";
 import randomId from "../middlewares/randomId";
 import api from "../middlewares/api";
 import thunk from "redux-thunk";
+import { routerMiddleware } from "connected-react-router";
+import { history } from "../history";
+
+
+const routerHistoryMiddleware = routerMiddleware(history);
 
 const composeEnhancers =
   typeof window === "object" &&
@@ -12,7 +17,7 @@ const composeEnhancers =
       // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
     }) : compose;
 const enhancer = composeEnhancers(
-  applyMiddleware(thunk, randomId, api, logger)
+  applyMiddleware(thunk, randomId, api, logger, routerHistoryMiddleware)
 );
 
 const store = createStore(reducer, {}, enhancer);

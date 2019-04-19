@@ -6,6 +6,7 @@ import Counter from "./Counter";
 import NotFound from "./routes/NotFound";
 import { BrowserRouter as Router, NavLink, Route, Switch } from "react-router-dom";
 import NewArticle from "./routes/NewArticle";
+import CommentsPage from "./routes/CommentsPage";
 
 // import "./app.css";
 
@@ -35,6 +36,7 @@ class App extends Component {
           <Route path="/filters" render={() => <Filters articles={[]}/>}/>
           <Route path="/articles/new" component={NewArticle}/>
           <Route path="/articles" component={Articles}/>
+          <Route path="/comments/:page" component={CommentsPage}/>
           <Route path="*" component={NotFound}/>
         </Switch>
       </Router>

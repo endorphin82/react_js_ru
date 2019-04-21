@@ -4,7 +4,7 @@ import LocalizedText from "./LocalizedText";
 const Loader = () => {
   return (
     <div>
-      <h2><LocalizedText>Loading...</LocalizedText></h2>
+      <h2><LocalizedText>Loading</LocalizedText>...</h2>
     </div>
   );
 };

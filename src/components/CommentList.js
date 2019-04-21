@@ -6,6 +6,7 @@ import CommentForm from "./CommentForm";
 import Loader from "./Loader";
 import { connect } from "react-redux";
 import { loadArticleComments } from "../AC";
+import LocalizedText from "./LocalizedText";
 
 class CommentList extends Component {
   static contextTypes = {
@@ -49,7 +50,7 @@ function getBody({ article: { comments = [], id, commentsLoading, commentsLoaded
 
   if (!comments.length) return (
     <div>
-      <p>No comments yet</p>
+      <p><LocalizedText>No comments yet</LocalizedText></p>
       <CommentForm articleId={id}/>
     </div>
   );

@@ -10,6 +10,7 @@ import { NavLink, Route, Switch } from "react-router-dom";
 import { history } from "../history";
 import { ConnectedRouter } from "connected-react-router";
 import PropTypes from "prop-types";
+import LangProvider from "./LangProvider";
 
 
 // import "./app.css";
@@ -26,38 +27,46 @@ class App extends Component {
   }
 
   state = {
-    username: ""
+    username: "",
+    language: "ru"
   };
+
+  changeLanguage = language => ev => this.setState({ language });
 
   render() {
     return (
       <ConnectedRouter history={history}>
-        <div>
-          <h2>Main menu</h2>
-          <nav>
+        <LangProvider language={this.state.language}>
+          <div>
             <ul>
-              <li><NavLink
-                activeStyle={{ color: "tomato" }}
-                to="/counter">Counter</NavLink></li>
-              <li><NavLink
-                activeStyle={{ color: "tomato" }}
-                to="/filters">Filters</NavLink></li>
-              <li><NavLink
-                activeStyle={{ color: "tomato" }}
-                to="/articles">Articles</NavLink></li>
+              <li onClick={this.changeLanguage("en")}>English</li>
+              <li onClick={this.changeLanguage("ru")}>Russian</li>
             </ul>
-          </nav>
-        </div>
-        <UserForm value={this.state.username} onChange={this.handleUserChange}/>
-        <Switch>
-          <Route path="/counter" component={Counter}/>
-          <Route path="/filters" render={() => <Filters articles={[]}/>}/>
-          <Route path="/articles/new" component={NewArticle}/>
-          <Route path="/articles" component={Articles}/>
-          <Route path="/comments" component={CommentsPage}/>
-          {/*<Redirect from='/comments/' to="/comments/1"/>*/}
-          <Route path="*" component={NotFound}/>
-        </Switch>
+            <nav>
+              <ul>
+                <li><NavLink
+                  activeStyle={{ color: "tomato" }}
+                  to="/counter">Counter</NavLink></li>
+                <li><NavLink
+                  activeStyle={{ color: "tomato" }}
+                  to="/filters">Filters</NavLink></li>
+                <li><NavLink
+                  activeStyle={{ color: "tomato" }}
+                  to="/articles">Articles</NavLink></li>
+              </ul>
+            </nav>
+          </div>
+          <UserForm value={this.state.username} onChange={this.handleUserChange}/>
+          <Switch>
+            <Route path="/counter" component={Counter}/>
+            <Route path="/filters" render={() => <Filters articles={[]}/>}/>
+            <Route path="/articles/new" component={NewArticle}/>
+            <Route path="/articles" component={Articles}/>
+            <Route path="/comments" component={CommentsPage}/>
+            {/*<Redirect from='/comments/' to="/comments/1"/>*/}
+            <Route path="*" component={NotFound}/>
+          </Switch>
+        </LangProvider>
       </ConnectedRouter>
     );
   }

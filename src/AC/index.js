@@ -4,6 +4,7 @@ import {
   START, SUCCESS, FAILURE, LOAD_ARTICLE_COMMENTS, LOAD_COMMENTS_FOR_PAGE
 } from "../constants";
 import { replace } from "connected-react-router";
+
 // import { history } from "../history";
 
 export function increment() {
@@ -56,37 +57,64 @@ export function loadArticleComments(articleId) {
   };
 }
 
-export function loadArticle(id) {
-  return (dispatch) => {
-    dispatch({
-      type: LOAD_ARTICLE + START,
-      payload: { id }
-    });
-    setTimeout(() => {
-      fetch(`/api/article/${id}`)
-        .then(res => {
-          if (res.status >= 400) {
-            throw new Error(res.statusText);
-          }
-          return res.json();
-        })
-        .then(response => dispatch({
-          type: LOAD_ARTICLE + SUCCESS,
-          payload: { id, response }
-        }))
-        .catch(error => {
+// export function loadArticle(id) {
+//   return (dispatch) => {
+//     dispatch({
+//       type: LOAD_ARTICLE + START,
+//       payload: { id }
+//     });
+//     setTimeout(() => {
+//       fetch(`/api/article/${id}`)
+//         .then(res => {
+//           if (res.status >= 400) {
+//             throw new Error(res.statusText);
+//           }
+//           return res.json();
+//         })
+//         .then(response => dispatch({
+//           type: LOAD_ARTICLE + SUCCESS,
+//           payload: { id, response }
+//         }))
+//         .catch(error => {
+//
+//           dispatch({
+//             type: LOAD_ARTICLE + FAILURE,
+//             payload: { id, error }
+//           });
+//           // dispatch(push("/error"));
+//           // history.replace("/error");
+//           dispatch(replace("/error"));
+//         });
+//     }, 2000);
+//   };
+// }
 
-          dispatch({
-            type: LOAD_ARTICLE + FAILURE,
-            payload: { id, error }
-          });
-          // dispatch(push("/error"));
-          // history.replace("/error");
-          dispatch(replace("/error"));
+export const loadArticle = (id) => dispatch => {
+  dispatch({
+    type: LOAD_ARTICLE + START,
+    payload: { id }
+  });
+  setTimeout(() => {
+    fetch(`/api/article/${id}`)
+      .then(res => {
+        if (res.status >= 400) {
+          throw new Error(res.statusText);
+        }
+        return res.json();
+      })
+      .then(response => dispatch({
+        type: LOAD_ARTICLE + SUCCESS,
+        payload: { id, response }
+      }))
+      .catch(error => {
+        dispatch({
+          type: LOAD_ARTICLE + FAILURE,
+          payload: { id, error }
         });
-    }, 2000);
-  };
-}
+        dispatch(replace("/error"));
+      });
+  }, 2000);
+};
 
 export function checkAndLoadCommentsForPage(page) {
   return (dispatch, getState) => {

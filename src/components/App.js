@@ -39,8 +39,8 @@ class App extends Component {
         <LangProvider language={this.state.language}>
           <div>
             <ul>
-              <li onClick={this.changeLanguage("en")}>English</li>
-              <li onClick={this.changeLanguage("ru")}>Russian</li>
+              <li style={{ cursor: "pointer" }} onClick={this.changeLanguage("en")}>English</li>
+              <li style={{ cursor: "pointer" }} onClick={this.changeLanguage("ru")}>Russian</li>
             </ul>
             <nav>
               <ul>
@@ -74,6 +74,5 @@ class App extends Component {
   handleUserChange = (username) => this.setState({ username });
 
 }
-
 
 export default App;

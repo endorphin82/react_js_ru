@@ -1,5 +1,4 @@
-import React, { Component, PureComponent } from "react";
-import { findDOMNode } from "react-dom";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { CSSTransitionGroup } from "react-transition-group";
 import CommentList from "../CommentList";
@@ -8,6 +7,7 @@ import { connect } from "react-redux";
 import { deleteArticle, loadArticle } from "../../AC";
 import Loader from "../Loader";
 import LocalizedText from "../LocalizedText";
+import toggleOpen from "../../decorators/toggleOpen";
 
 class Article extends Component {
   static propTypes = {
@@ -91,4 +91,4 @@ class Article extends Component {
 
 export default connect((state, ownProps) => ({
   article: state.articles.entities.get(ownProps.id)
-}), { deleteArticle, loadArticle }, null, { pure: false })(Article);
+}), { deleteArticle, loadArticle }, null, { pure: false })(toggleOpen(Article));
